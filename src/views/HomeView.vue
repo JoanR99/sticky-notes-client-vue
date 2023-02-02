@@ -19,7 +19,7 @@ const notes = [
 
 <template>
   <main>
-    <div class="grid grid-cols-4 gap-4 p-8 px-40">
+    <div class="grid grid-cols-4 gap-4 p-8 px-40 mt-10">
       <NoteCard v-for="note in notes" v-bind:key="note.id" :note="note" />
     </div>
   </main>
