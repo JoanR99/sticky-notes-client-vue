@@ -7,7 +7,6 @@ import SecondaryHeader from "./components/SecondaryHeader.vue";
 <template>
   <MainHeader />
   <SecondaryHeader />
+
   <RouterView />
 </template>
-
-<style scoped></style>

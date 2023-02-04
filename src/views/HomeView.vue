@@ -4,12 +4,14 @@ import NoteCard from "@/components/NoteCard.vue";
 import { getNotesFn } from "../api/authApi";
 import { useIsArchiveStore } from "../stores/isArchive";
 import { storeToRefs } from "pinia";
+import { useColorStore } from "../stores/color";
 
 const isArchiveStore = useIsArchiveStore();
 
 const { isArchive } = storeToRefs(isArchiveStore);
 
-const color = undefined;
+const colorStore = useColorStore();
+const { color } = storeToRefs(colorStore);
 const search = undefined;
 
 const { status, data } = useQuery({
@@ -17,7 +19,7 @@ const { status, data } = useQuery({
   queryFn: async () =>
     await getNotesFn({
       isArchive: isArchive.value,
-      color,
+      color: color.value,
       search,
     }),
   staleTime: 60000,
@@ -27,7 +29,7 @@ const { status, data } = useQuery({
 
 <template>
   <main>
-    <div class="grid grid-cols-4 gap-4 p-8 px-40 mt-16">
+    <div class="grid grid-cols-4 gap-4 p-8 px-40 mt-20">
       <p v-if="status === 'loading'">Loading...</p>
       <p v-else-if="status === 'error'">Error</p>
       <NoteCard

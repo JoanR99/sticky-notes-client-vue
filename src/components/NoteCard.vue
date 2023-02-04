@@ -79,34 +79,10 @@ import {
   DialogPanel,
   DialogTitle,
 } from "@headlessui/vue";
-import type { Note, Color } from "@/schemas/noteSchemas";
+import type { Note } from "@/schemas/noteSchemas";
+import getColor from "@/utils/getColor";
 
 const props = defineProps<{ note: Note }>();
-
-function getColor(color: Color) {
-  switch (color) {
-    case "blue":
-      return "bg-blue-200";
-    case "green":
-      return "bg-green-200";
-    case "yellow":
-      return "bg-yellow-200";
-    case "brown":
-      return "bg-stone-400";
-    case "pink":
-      return "bg-pink-200";
-    case "red":
-      return "bg-red-200";
-    case "orange":
-      return "bg-orange-200";
-    case "purple":
-      return "bg-purple-200";
-    case "white":
-      return "bg-white";
-    case "gray":
-      return "bg-gray-200";
-  }
-}
 
 const isOpen = ref(false);
 const showAnimation = ref(false);
