@@ -36,7 +36,7 @@ const handleLogout = () => mutate();
 <template>
   <header class="fixed top-0 w-full">
     <div
-      class="flex justify-between px-4 items-center bg-teal-700 text-white py-2"
+      class="flex justify-between px-4 items-center bg-teal-700 text-white py-3"
     >
       <RouterLink to="/" class="text-xl font-bold">Sticky Notes</RouterLink>
       <nav v-if="!authStore.accessToken" class="flex gap-2">
