@@ -17,6 +17,7 @@ import {
   type GetNotesResponse,
 } from "../schemas/noteSchemas";
 import { useAuthStore } from "../stores/auth";
+import { storeToRefs } from "pinia";
 
 export enum HTTPMethod {
   GET = "GET",
@@ -52,8 +53,8 @@ export default function api<Request, Response>({
 
     async function apiCall() {
       const authStore = useAuthStore();
-      const { accessToken } = authStore;
-      const Authorization = accessToken ? `Bearer ${accessToken}` : "";
+      const { accessToken } = storeToRefs(authStore);
+      const Authorization = accessToken ? `Bearer ${accessToken.value}` : "";
 
       const response = await authApi({
         method,
@@ -81,14 +82,19 @@ authApi.interceptors.response.use(
     return response;
   },
   async (error) => {
+    console.log(error);
     const originalRequest = error.config;
     const errMessage = error.response.data.message as string;
+    const authStore = useAuthStore();
+    const { setAccessToken } = authStore;
+
     if (
       errMessage.includes("Authorization token expired") &&
       !originalRequest._retry
     ) {
       originalRequest._retry = true;
-      await refreshAccessTokenFn();
+      const response = await refreshAccessTokenFn();
+      setAccessToken(response.accessToken);
       return authApi(originalRequest);
     }
     return Promise.reject(error);
