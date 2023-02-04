@@ -2,8 +2,13 @@
 import { useQuery } from "@tanstack/vue-query";
 import NoteCard from "@/components/NoteCard.vue";
 import { getNotesFn } from "../api/authApi";
+import { useIsArchiveStore } from "../stores/isArchive";
+import { storeToRefs } from "pinia";
 
-const isArchive = false;
+const isArchiveStore = useIsArchiveStore();
+
+const { isArchive } = storeToRefs(isArchiveStore);
+
 const color = undefined;
 const search = undefined;
 
@@ -11,7 +16,7 @@ const { status, data } = useQuery({
   queryKey: ["notes", { isArchive, color, search }],
   queryFn: async () =>
     await getNotesFn({
-      isArchive,
+      isArchive: isArchive.value,
       color,
       search,
     }),
