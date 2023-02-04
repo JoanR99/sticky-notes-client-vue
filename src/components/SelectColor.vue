@@ -1,9 +1,9 @@
 <template>
-  <div class="w-12">
+  <div class="w-14">
     <Listbox v-model="color">
       <div class="relative mt-1">
         <ListboxButton
-          class="relative w-full cursor-default rounded-lg bg-white p-2 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm"
+          class="relative flex w-full cursor-pointer rounded-lg bg-white p-2 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm"
         >
           <span
             class="block truncate h-5 w-5"
@@ -14,6 +14,7 @@
             "
             >{{ color === undefined ? "All" : "" }}</span
           >
+          <v-icon name="bi-caret-down-fill" class="text-gray-400" />
         </ListboxButton>
 
         <transition
@@ -34,7 +35,7 @@
               <li
                 :class="[
                   active ? 'bg-amber-100 text-amber-900' : 'text-gray-900',
-                  'relative cursor-default select-none p-2',
+                  'relative cursor-pointer select-none p-2',
                 ]"
               >
                 <span
