@@ -10,6 +10,13 @@ import {
 } from "@/schemas/userSchemas";
 import axios from "axios";
 import type { z } from "zod";
+import {
+  getNotesInput,
+  getNotesResponse,
+  type GetNotesInput,
+  type GetNotesResponse,
+} from "../schemas/noteSchemas";
+import { useAuthStore } from "../stores/auth";
 
 export enum HTTPMethod {
   GET = "GET",
@@ -44,10 +51,17 @@ export default function api<Request, Response>({
     requestSchema.parse(requestData);
 
     async function apiCall() {
+      const authStore = useAuthStore();
+      const { accessToken } = authStore;
+      const Authorization = accessToken ? `Bearer ${accessToken}` : "";
+
       const response = await authApi({
         method,
         url: path,
         [method === HTTPMethod.GET ? "params" : "data"]: requestData,
+        headers: {
+          Authorization,
+        },
       });
 
       return responseSchema.parse(response.data);
@@ -99,3 +113,10 @@ export const logoutUserFn = async () => {
   const response = await authApi.post("users/logout");
   return response.data;
 };
+
+export const getNotesFn = api<GetNotesInput, GetNotesResponse>({
+  method: HTTPMethod.GET,
+  path: "/notes",
+  requestSchema: getNotesInput,
+  responseSchema: getNotesResponse,
+});
