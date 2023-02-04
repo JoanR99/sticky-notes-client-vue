@@ -5,6 +5,7 @@ import { getNotesFn } from "../api/authApi";
 import { useIsArchiveStore } from "../stores/isArchive";
 import { storeToRefs } from "pinia";
 import { useColorStore } from "../stores/color";
+import { useSearchStore } from "../stores/search";
 
 const isArchiveStore = useIsArchiveStore();
 
@@ -12,7 +13,9 @@ const { isArchive } = storeToRefs(isArchiveStore);
 
 const colorStore = useColorStore();
 const { color } = storeToRefs(colorStore);
-const search = undefined;
+
+const searchStore = useSearchStore();
+const { search } = storeToRefs(searchStore);
 
 const { status, data } = useQuery({
   queryKey: ["notes", { isArchive, color, search }],
@@ -20,7 +23,7 @@ const { status, data } = useQuery({
     await getNotesFn({
       isArchive: isArchive.value,
       color: color.value,
-      search,
+      search: search.value,
     }),
   staleTime: 60000,
   refetchOnWindowFocus: false,
@@ -29,7 +32,7 @@ const { status, data } = useQuery({
 
 <template>
   <main>
-    <div class="grid grid-cols-4 gap-4 p-8 px-40 mt-20">
+    <div class="grid grid-cols-4 gap-6 p-8 px-40 mt-24">
       <p v-if="status === 'loading'">Loading...</p>
       <p v-else-if="status === 'error'">Error</p>
       <NoteCard
