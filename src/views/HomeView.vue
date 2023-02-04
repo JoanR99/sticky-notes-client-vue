@@ -1,26 +1,36 @@
 <script setup lang="ts">
+import { useQuery } from "@tanstack/vue-query";
 import NoteCard from "@/components/NoteCard.vue";
+import { getNotesFn } from "../api/authApi";
 
-const notes = [
-  {
-    id: 1,
-    title: "Joan",
-    content: "Recuerda",
-    color: "blue",
-  },
-  {
-    id: 2,
-    title: "Joan",
-    content: "Recuerda",
-    color: "blue",
-  },
-];
+const isArchive = false;
+const color = undefined;
+const search = undefined;
+
+const { status, data } = useQuery({
+  queryKey: ["notes", { isArchive, color, search }],
+  queryFn: async () =>
+    await getNotesFn({
+      isArchive,
+      color,
+      search,
+    }),
+  staleTime: 60000,
+  refetchOnWindowFocus: false,
+});
 </script>
 
 <template>
   <main>
-    <div class="grid grid-cols-4 gap-4 p-8 px-40 mt-10">
-      <NoteCard v-for="note in notes" v-bind:key="note.id" :note="note" />
+    <div class="grid grid-cols-4 gap-4 p-8 px-40 mt-16">
+      <p v-if="status === 'loading'">Loading...</p>
+      <p v-else-if="status === 'error'">Error</p>
+      <NoteCard
+        v-else-if="data"
+        v-for="note in data"
+        v-bind:key="note.id"
+        :note="note"
+      />
     </div>
   </main>
 </template>
