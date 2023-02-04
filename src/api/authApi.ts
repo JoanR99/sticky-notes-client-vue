@@ -13,8 +13,12 @@ import type { z } from "zod";
 import {
   getNotesInput,
   getNotesResponse,
+  noteSchema,
+  createNoteSchema,
+  type CreateNoteInput,
   type GetNotesInput,
   type GetNotesResponse,
+  type Note,
 } from "../schemas/noteSchemas";
 import { useAuthStore } from "../stores/auth";
 import { storeToRefs } from "pinia";
@@ -125,4 +129,11 @@ export const getNotesFn = api<GetNotesInput, GetNotesResponse>({
   path: "/notes",
   requestSchema: getNotesInput,
   responseSchema: getNotesResponse,
+});
+
+export const createNoteFn = api<CreateNoteInput, Note>({
+  method: HTTPMethod.POST,
+  path: "/notes",
+  requestSchema: createNoteSchema,
+  responseSchema: noteSchema,
 });

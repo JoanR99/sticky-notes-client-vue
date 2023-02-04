@@ -6,6 +6,7 @@ import { useIsArchiveStore } from "../stores/isArchive";
 import { storeToRefs } from "pinia";
 import { useColorStore } from "../stores/color";
 import { useSearchStore } from "../stores/search";
+import CreateNoteVue from "@/components/CreateNote.vue";
 
 const isArchiveStore = useIsArchiveStore();
 
@@ -42,5 +43,6 @@ const { status, data } = useQuery({
         :note="note"
       />
     </div>
+    <CreateNoteVue />
   </main>
 </template>

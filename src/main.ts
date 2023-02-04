@@ -8,9 +8,9 @@ import router from "./router";
 import "./assets/base.css";
 import "mosha-vue-toastify/dist/style.css";
 import { OhVueIcon, addIcons } from "oh-vue-icons";
-import { FaSearch, BiCaretDownFill } from "oh-vue-icons/icons";
+import { FaSearch, BiCaretDownFill, MdCreateRound } from "oh-vue-icons/icons";
 
-addIcons(FaSearch, BiCaretDownFill);
+addIcons(FaSearch, BiCaretDownFill, MdCreateRound);
 
 const app = createApp(App);
 

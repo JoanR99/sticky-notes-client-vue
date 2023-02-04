@@ -53,7 +53,7 @@
 </template>
 
 <script setup lang="ts">
-import { Form, useField, useForm } from "vee-validate";
+import { useField, useForm } from "vee-validate";
 import { toFormValidator } from "@vee-validate/zod";
 import { useMutation, useQueryClient } from "@tanstack/vue-query";
 import { loginUserFn } from "../api/authApi";

@@ -4,7 +4,7 @@
       <h1
         class="text-4xl xl:text-6xl text-center font-[600] text-teal-600 mb-4"
       >
-        Welcome to CodevoWeb!
+        Welcome to Sticky Notes!
       </h1>
       <h2 class="text-lg text-center mb-4 text-gray-600">
         Sign Up To Get Started!
@@ -78,7 +78,7 @@
 </template>
 
 <script setup lang="ts">
-import { Form, useField, useForm } from "vee-validate";
+import { useField, useForm } from "vee-validate";
 import { toFormValidator } from "@vee-validate/zod";
 import { useMutation } from "@tanstack/vue-query";
 import { signUpUserFn } from "@/api/authApi";
@@ -115,7 +115,7 @@ const { isLoading, mutate } = useMutation({
       });
     }
   },
-  onSuccess: (data) => {
+  onSuccess: () => {
     router.push({ name: "login" });
     createToast("Sign up success", {
       position: "top-right",

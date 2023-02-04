@@ -29,13 +29,13 @@ export const noteSchema = z.object({
   updatedAt: z.string(),
 });
 
-const createNoteSchema = noteSchema.pick({
+export const createNoteSchema = noteSchema.pick({
   title: true,
   content: true,
   color: true,
 });
 
-const updateNoteSchema = noteSchema
+export const updateNoteSchema = noteSchema
   .pick({
     title: true,
     content: true,
