@@ -1,20 +1,17 @@
 <template>
-  <article
-    class="w-full max-w-md overflow-hidden rounded-2xl p-6 text-left align-middle shadow-xl"
-    :class="getColor(props.note.color)"
-  >
-    <div @click="openModal">
-      <h2 class="text-lg font-medium leading-6 text-gray-900">
-        {{ props.note.title }}
-      </h2>
-      <p>{{ props.note.content }}</p>
-    </div>
+  <v-icon
+    v-if="props.note.isArchive"
+    name="md-unarchive"
+    class="text-dark cursor-pointer"
+    @click="openModal"
+  />
 
-    <div class="mt-2 flex justify-center gap-2">
-      <UpdateNote :note="props.note" />
-      <ToggleIsArchive :note="props.note" />
-    </div>
-  </article>
+  <v-icon
+    v-else
+    name="bi-archive-fill"
+    class="text-dark cursor-pointer"
+    @click="openModal"
+  />
 
   <TransitionRoot v-if="isOpen" appear :show="showAnimation" as="template">
     <Dialog as="div" @close="closeModal" class="relative z-10">
@@ -44,22 +41,16 @@
             leave-to="opacity-0 scale-95"
           >
             <DialogPanel
-              class="w-full max-w-md transform overflow-hidden rounded-2xl p-6 text-left align-middle shadow-xl transition-all"
-              :class="getColor(props.note.color)"
+              class="w-full max-w-lg transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all"
             >
               <DialogTitle
                 as="h3"
                 class="text-lg font-medium leading-6 text-gray-900"
               >
-                {{ props.note.title }}
+                {{ props.note.isArchive ? "Unarchive" : "Archive" }} Note
               </DialogTitle>
-              <div class="mt-2">
-                <p class="text-sm text-gray-500">
-                  {{ props.note.content }}
-                </p>
-              </div>
 
-              <div class="mt-4">
+              <div class="flex justify-between mt-6">
                 <button
                   type="button"
                   class="inline-flex justify-center rounded-md border border-transparent bg-red-200 px-4 py-2 text-sm font-medium text-gray-900 hover:bg-red-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2"
@@ -67,6 +58,14 @@
                 >
                   Close
                 </button>
+                <LoadingButton
+                  :loading="isLoading"
+                  class="w-16"
+                  @click="onClick"
+                  >{{
+                    props.note.isArchive ? "Unarchive" : "Archive"
+                  }}</LoadingButton
+                >
               </div>
             </DialogPanel>
           </TransitionChild>
@@ -77,7 +76,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, defineProps } from "vue";
+import { ref } from "vue";
 import {
   TransitionRoot,
   TransitionChild,
@@ -85,12 +84,50 @@ import {
   DialogPanel,
   DialogTitle,
 } from "@headlessui/vue";
-import type { Note } from "@/schemas/noteSchemas";
-import getColor from "@/utils/getColor";
-import UpdateNote from "./UpdateNote.vue";
-import ToggleIsArchive from "./ToggleIsArchive.vue";
+import { useMutation, useQueryClient } from "@tanstack/vue-query";
+import { updateNoteFn } from "../api/authApi";
+import type { Note, UpdateNoteInput } from "../schemas/noteSchemas";
+import { createToast } from "mosha-vue-toastify";
+import LoadingButton from "../components/LoadingButton.vue";
 
-const props = defineProps<{ note: Note }>();
+const props = defineProps<{
+  note: Note;
+}>();
+
+const queryClient = useQueryClient();
+
+const { isLoading, mutate } = useMutation({
+  mutationFn: (note: UpdateNoteInput) => updateNoteFn(props.note.id)(note),
+  onError: (error) => {
+    if (Array.isArray((error as any).response.data.error)) {
+      (error as any).response.data.error.forEach((el: any) =>
+        createToast(el.message, {
+          position: "top-right",
+          type: "warning",
+        })
+      );
+    } else {
+      createToast((error as any).response.data.message, {
+        position: "top-right",
+        type: "danger",
+      });
+    }
+    closeModal();
+  },
+  onSuccess: () => {
+    queryClient.refetchQueries(["notes"]);
+    createToast("Successfully updated note", {
+      position: "top-right",
+    });
+    closeModal();
+  },
+});
+
+const onClick = () => {
+  mutate({
+    isArchive: !props.note.isArchive,
+  });
+};
 
 const isOpen = ref(false);
 const showAnimation = ref(false);

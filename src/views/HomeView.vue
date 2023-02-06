@@ -9,7 +9,6 @@ import { useSearchStore } from "../stores/search";
 import CreateNoteVue from "@/components/CreateNote.vue";
 
 const isArchiveStore = useIsArchiveStore();
-
 const { isArchive } = storeToRefs(isArchiveStore);
 
 const colorStore = useColorStore();

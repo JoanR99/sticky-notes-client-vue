@@ -13,9 +13,18 @@ import {
   BiCaretDownFill,
   MdCreateRound,
   MdModeeditoutline,
+  BiArchiveFill,
+  MdUnarchive,
 } from "oh-vue-icons/icons";
 
-addIcons(FaSearch, BiCaretDownFill, MdCreateRound, MdModeeditoutline);
+addIcons(
+  FaSearch,
+  BiCaretDownFill,
+  MdCreateRound,
+  MdModeeditoutline,
+  BiArchiveFill,
+  MdUnarchive
+);
 
 const app = createApp(App);
 
