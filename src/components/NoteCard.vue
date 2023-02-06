@@ -2,12 +2,17 @@
   <article
     class="w-full max-w-md overflow-hidden rounded-2xl p-6 text-left align-middle shadow-xl"
     :class="getColor(props.note.color)"
-    @click="openModal"
   >
-    <h2 class="text-lg font-medium leading-6 text-gray-900">
-      {{ props.note.title }}
-    </h2>
-    <p>{{ props.note.content }}</p>
+    <div @click="openModal">
+      <h2 class="text-lg font-medium leading-6 text-gray-900">
+        {{ props.note.title }}
+      </h2>
+      <p>{{ props.note.content }}</p>
+    </div>
+
+    <div class="mt-2 flex justify-center gap-2">
+      <UpdateNote :note="props.note" />
+    </div>
   </article>
 
   <TransitionRoot v-if="isOpen" appear :show="showAnimation" as="template">
@@ -81,6 +86,7 @@ import {
 } from "@headlessui/vue";
 import type { Note } from "@/schemas/noteSchemas";
 import getColor from "@/utils/getColor";
+import UpdateNote from "./UpdateNote.vue";
 
 const props = defineProps<{ note: Note }>();
 

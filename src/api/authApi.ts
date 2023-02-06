@@ -19,6 +19,8 @@ import {
   type GetNotesInput,
   type GetNotesResponse,
   type Note,
+  type UpdateNoteInput,
+  updateNoteSchema,
 } from "../schemas/noteSchemas";
 import { useAuthStore } from "../stores/auth";
 import { storeToRefs } from "pinia";
@@ -26,6 +28,7 @@ import { storeToRefs } from "pinia";
 export enum HTTPMethod {
   GET = "GET",
   POST = "POST",
+  PATCH = "PATCH",
 }
 
 export enum HTTPStatusCode {
@@ -137,3 +140,11 @@ export const createNoteFn = api<CreateNoteInput, Note>({
   requestSchema: createNoteSchema,
   responseSchema: noteSchema,
 });
+
+export const updateNoteFn = (id: number) =>
+  api<UpdateNoteInput, Note>({
+    method: HTTPMethod.PATCH,
+    path: `/notes/${id}`,
+    requestSchema: updateNoteSchema,
+    responseSchema: noteSchema,
+  });
