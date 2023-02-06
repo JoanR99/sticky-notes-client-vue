@@ -29,6 +29,7 @@ export enum HTTPMethod {
   GET = "GET",
   POST = "POST",
   PATCH = "PATCH",
+  DELETE = "DELETE",
 }
 
 export enum HTTPStatusCode {
@@ -148,3 +149,13 @@ export const updateNoteFn = (id: number) =>
     requestSchema: updateNoteSchema,
     responseSchema: noteSchema,
   });
+
+export const deleteNoteFn = async (id: number) => {
+  const authStore = useAuthStore();
+  const { accessToken } = storeToRefs(authStore);
+  const Authorization = accessToken ? `Bearer ${accessToken.value}` : "";
+  const response = await authApi.delete(`notes/${id}`, {
+    headers: { Authorization },
+  });
+  return response.data as Note;
+};

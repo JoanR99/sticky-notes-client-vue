@@ -15,6 +15,7 @@ import {
   MdModeeditoutline,
   BiArchiveFill,
   MdUnarchive,
+  MdDelete,
 } from "oh-vue-icons/icons";
 
 addIcons(
@@ -23,7 +24,8 @@ addIcons(
   MdCreateRound,
   MdModeeditoutline,
   BiArchiveFill,
-  MdUnarchive
+  MdUnarchive,
+  MdDelete
 );
 
 const app = createApp(App);
