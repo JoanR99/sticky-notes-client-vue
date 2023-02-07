@@ -71,7 +71,9 @@
             >Login Here</router-link
           ></span
         >
-        <LoadingButton :loading="isLoading">Sign Up</LoadingButton>
+        <LoadingButton variant="fullwidth" :loading="isLoading"
+          >Sign Up</LoadingButton
+        >
       </form>
     </div>
   </section>
@@ -119,6 +121,7 @@ const { isLoading, mutate } = useMutation({
     router.push({ name: "login" });
     createToast("Sign up success", {
       position: "top-right",
+      type: "success",
     });
   },
 });

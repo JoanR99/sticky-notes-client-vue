@@ -53,15 +53,15 @@
               <div class="flex justify-between mt-6">
                 <button
                   type="button"
-                  class="inline-flex justify-center rounded-md border border-transparent bg-red-200 px-4 py-2 text-sm font-medium text-gray-900 hover:bg-red-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2"
+                  class="inline-flex justify-center rounded-md border border-transparent bg-red-300 px-4 py-2 text-sm font-medium text-gray-900 hover:bg-red-400"
                   @click="closeModal"
                 >
                   Close
                 </button>
                 <LoadingButton
                   :loading="isLoading"
-                  class="w-16"
                   @click="onClick"
+                  variant="normal"
                   >{{
                     props.note.isArchive ? "Unarchive" : "Archive"
                   }}</LoadingButton
@@ -118,6 +118,7 @@ const { isLoading, mutate } = useMutation({
     queryClient.refetchQueries(["notes"]);
     createToast("Successfully updated note", {
       position: "top-right",
+      type: "success",
     });
     closeModal();
   },

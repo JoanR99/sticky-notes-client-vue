@@ -9,7 +9,7 @@ function getColor(color: Color) {
     case "yellow":
       return "bg-yellow-200";
     case "brown":
-      return "bg-stone-400";
+      return "bg-stone-300";
     case "pink":
       return "bg-pink-200";
     case "red":

@@ -1,13 +1,13 @@
 <template>
   <article
-    class="w-full max-w-md overflow-hidden rounded-2xl p-6 text-left align-middle shadow-xl"
+    class="w-full max-w-lg overflow-hidden rounded-2xl px-6 py-4 text-left align-middle shadow-xl flex flex-col justify-around"
     :class="getColor(props.note.color)"
   >
     <div @click="openModal">
-      <h2 class="text-lg font-medium leading-6 text-gray-900">
+      <h2 class="text-lg font-medium leading-6 text-gray-900 break-words">
         {{ props.note.title }}
       </h2>
-      <p>{{ props.note.content }}</p>
+      <p class="break-words mt-2 text-gray-700">{{ props.note.content }}</p>
     </div>
 
     <div class="mt-2 flex justify-center gap-2">
@@ -63,7 +63,7 @@
               <div class="mt-4">
                 <button
                   type="button"
-                  class="inline-flex justify-center rounded-md border border-transparent bg-red-200 px-4 py-2 text-sm font-medium text-gray-900 hover:bg-red-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2"
+                  class="inline-flex justify-center rounded-md border border-transparent bg-red-300 px-4 py-2 text-sm font-medium text-gray-900 hover:bg-red-400"
                   @click="closeModal"
                 >
                   Close
@@ -78,7 +78,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, defineProps } from "vue";
+import { ref } from "vue";
 import {
   TransitionRoot,
   TransitionChild,

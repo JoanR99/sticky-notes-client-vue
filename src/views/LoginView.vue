@@ -40,7 +40,9 @@
           }}</span>
         </div>
 
-        <LoadingButton :loading="isLoading">Login</LoadingButton>
+        <LoadingButton variant="fullwidth" :loading="isLoading"
+          >Login</LoadingButton
+        >
         <span class="block"
           >Need an account?
           <router-link :to="{ name: 'register' }" class="text-pink-600"
@@ -99,6 +101,7 @@ const { isLoading, mutate } = useMutation({
     authStore.setAccessToken(data.accessToken);
     createToast("Successfully logged in", {
       position: "top-right",
+      type: "success",
     });
     router.push({ name: "home" });
   },
