@@ -189,7 +189,7 @@ const { handleSubmit, errors, resetForm } = useForm({
   initialValues: {
     title: props.note.title,
     content: props.note.content,
-    color: props.note.color,
+    color: props.note.color as Color,
   },
 });
 

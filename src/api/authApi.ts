@@ -36,7 +36,7 @@ export enum HTTPStatusCode {
   OK = 200,
 }
 
-const BASE_URL = "http://localhost:3000/api/";
+const BASE_URL = "https://sticky-notes-server.onrender.com/api/";
 
 const authApi = axios.create({
   baseURL: BASE_URL,
@@ -111,7 +111,7 @@ authApi.interceptors.response.use(
 
 export const signUpUserFn = api<RegisterUser, UserResponse>({
   method: HTTPMethod.POST,
-  path: "/users/register",
+  path: "/users",
   requestSchema: registerUserSchema,
   responseSchema: userResponseSchema,
 });
