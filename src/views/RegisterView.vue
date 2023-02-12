@@ -2,7 +2,7 @@
   <section class="py-8 min-h-screen grid place-items-center">
     <div>
       <h1
-        class="text-4xl xl:text-6xl text-center font-[600] text-teal-600 mb-4"
+        class="text-4xl xl:text-6xl text-center font-[600] text-teal-600 mb-4 mt-12"
       >
         Welcome to Sticky Notes!
       </h1>
