@@ -66,7 +66,7 @@
                   class="inline-flex justify-center rounded-md border border-transparent bg-red-300 px-4 py-2 text-sm font-medium text-gray-900 hover:bg-red-400"
                   @click="closeModal"
                 >
-                  Close
+                  {{ $t("actions.close") }}
                 </button>
               </div>
             </DialogPanel>

@@ -4,17 +4,19 @@
       <h1
         class="text-4xl xl:text-6xl text-center font-[600] text-teal-600 mb-4"
       >
-        Welcome Back
+        {{ $t("login.title") }}
       </h1>
       <h2 class="text-lg text-center mb-4 text-gray-600">
-        Login to have access
+        {{ $t("login.sub_title") }}
       </h2>
       <form
         @submit="onSubmit"
         class="max-w-[27rem] mx-auto overflow-hidden shadow-lg bg-blue-200 rounded-2xl p-8 space-y-5"
       >
         <div class="">
-          <label for="email" class="block text-black mb-3">Email Address</label>
+          <label for="email" class="block text-black mb-3">{{
+            $t("labels.email")
+          }}</label>
           <input
             type="email"
             placeholder=" "
@@ -23,11 +25,13 @@
             id="email"
           />
           <span class="text-red-500 text-xs pt-1 block">{{
-            errors.email
+            $t(errors.email ?? "")
           }}</span>
         </div>
         <div class="">
-          <label for="password" class="block text-black mb-3">Password</label>
+          <label for="password" class="block text-black mb-3">{{
+            $t("labels.password")
+          }}</label>
           <input
             v-model="password"
             type="password"
@@ -36,18 +40,18 @@
             id="password"
           />
           <span class="text-red-500 text-xs pt-1 block">{{
-            errors.password
+            $t(errors.password ?? "")
           }}</span>
         </div>
 
-        <LoadingButton variant="fullwidth" :loading="isLoading"
-          >Login</LoadingButton
-        >
+        <LoadingButton variant="fullwidth" :loading="isLoading">{{
+          $t("login.actions.login")
+        }}</LoadingButton>
         <span class="block"
-          >Need an account?
-          <router-link :to="{ name: 'register' }" class="text-pink-600"
-            >Sign Up Here</router-link
-          ></span
+          >{{ $t("login.action_call") }}
+          <router-link :to="{ name: 'register' }" class="text-pink-600">{{
+            $t("login.actions.register")
+          }}</router-link></span
         >
       </form>
     </div>
@@ -65,6 +69,7 @@ import { createToast } from "mosha-vue-toastify";
 import router from "../router";
 import { useAuthStore } from "../stores/auth";
 import LoadingButton from "../components/LoadingButton.vue";
+import { useI18n } from "vue-i18n";
 
 const authStore = useAuthStore();
 
@@ -78,6 +83,8 @@ const { value: email } = useField("email");
 const { value: password } = useField("password");
 
 const queryClient = useQueryClient();
+
+const { t } = useI18n();
 
 const { isLoading, mutate } = useMutation({
   mutationFn: (credentials: LoginUserInput) => loginUserFn(credentials),
@@ -99,11 +106,11 @@ const { isLoading, mutate } = useMutation({
   onSuccess: (data) => {
     queryClient.refetchQueries(["user"]);
     authStore.setAccessToken(data.accessToken);
-    createToast("Successfully logged in", {
+    router.push({ name: "home" });
+    createToast(t("login.success"), {
       position: "top-right",
       type: "success",
     });
-    router.push({ name: "home" });
   },
 });
 

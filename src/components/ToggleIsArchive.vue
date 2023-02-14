@@ -47,7 +47,11 @@
                 as="h3"
                 class="text-lg font-medium leading-6 text-gray-900"
               >
-                {{ props.note.isArchive ? "Unarchive" : "Archive" }} Note
+                {{
+                  props.note.isArchive
+                    ? $t("unarchive_note.title")
+                    : $t("archive_note.title")
+                }}
               </DialogTitle>
 
               <div class="flex justify-between mt-6">
@@ -56,14 +60,16 @@
                   class="inline-flex justify-center rounded-md border border-transparent bg-red-300 px-4 py-2 text-sm font-medium text-gray-900 hover:bg-red-400"
                   @click="closeModal"
                 >
-                  Close
+                  {{ $t("actions.close") }}
                 </button>
                 <LoadingButton
                   :loading="isLoading"
                   @click="onClick"
                   variant="normal"
                   >{{
-                    props.note.isArchive ? "Unarchive" : "Archive"
+                    props.note.isArchive
+                      ? $t("actions.unarchive")
+                      : $t("actions.archive")
                   }}</LoadingButton
                 >
               </div>
@@ -89,12 +95,15 @@ import { updateNoteFn } from "../api/authApi";
 import type { Note, UpdateNoteInput } from "../schemas/noteSchemas";
 import { createToast } from "mosha-vue-toastify";
 import LoadingButton from "../components/LoadingButton.vue";
+import { useI18n } from "vue-i18n";
 
 const props = defineProps<{
   note: Note;
 }>();
 
 const queryClient = useQueryClient();
+
+const { t } = useI18n();
 
 const { isLoading, mutate } = useMutation({
   mutationFn: (note: UpdateNoteInput) => updateNoteFn(props.note.id)(note),
@@ -116,10 +125,15 @@ const { isLoading, mutate } = useMutation({
   },
   onSuccess: () => {
     queryClient.refetchQueries(["notes"]);
-    createToast("Successfully updated note", {
-      position: "top-right",
-      type: "success",
-    });
+    createToast(
+      props.note.isArchive
+        ? t("unarchive_note.success")
+        : t("archive_note.success"),
+      {
+        position: "top-right",
+        type: "success",
+      }
+    );
     closeModal();
   },
 });

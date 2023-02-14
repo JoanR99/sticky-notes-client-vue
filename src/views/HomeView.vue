@@ -33,7 +33,7 @@ const { status, data } = useQuery({
 <template>
   <main>
     <div
-      class="grid justify-items-center gap-6 p-8 mt-24 sm:px-10 md:px-20 xl:px-40 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-4 w-full"
+      class="grid justify-items-center gap-6 p-8 mt-28 sm:px-10 md:px-20 xl:px-40 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-4 w-full"
     >
       <p v-if="status === 'loading'">Loading...</p>
       <p v-else-if="status === 'error'">Error</p>

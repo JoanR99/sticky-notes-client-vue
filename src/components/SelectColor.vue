@@ -1,18 +1,19 @@
 <template>
-  <div class="w-14">
+  <div class="w-18">
     <Listbox v-model="color">
       <div class="relative mt-1">
         <ListboxButton
           class="relative flex w-full cursor-pointer rounded-lg bg-white p-2 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm"
         >
           <span
-            class="block truncate h-5 w-5"
-            :class="
+            class="block truncate h-5"
+            :class="[
               color
                 ? `${getColor(color)} rounded-full border border-gray-400`
-                : ''
-            "
-            >{{ color === undefined ? "All" : "" }}</span
+                : '',
+              $i18n.locale === 'en' ? 'w-5' : 'w-8',
+            ]"
+            >{{ color === undefined ? $t("filter_color.all") : "" }}</span
           >
           <v-icon name="bi-caret-down-fill" class="text-gray-400" />
         </ListboxButton>
@@ -39,11 +40,11 @@
                 ]"
               >
                 <span
-                  class="block truncate h-5 w-5"
-                  :class="colorInput
-                  ? `${getColor(colorInput as Color)} rounded-full border border-gray-400`
-                  : ''"
-                  >{{ colorInput === undefined ? "All" : "" }}</span
+                  class="block truncate h-5"
+                  :class="[colorInput ? `${getColor(colorInput as Color)} rounded-full border border-gray-400` : '', $i18n.locale === 'en' ? 'w-5' : 'w-8']"
+                  >{{
+                    colorInput === undefined ? $t("filter_color.all") : ""
+                  }}</span
                 >
               </li>
             </ListboxOption>

@@ -42,10 +42,12 @@
                 :class="color ? getColor(color as Color): 'bg-white'"
               >
                 <div class="">
-                  <label for="title" class="hidden">Title</label>
+                  <label for="title" class="hidden">{{
+                    $t("labels.title")
+                  }}</label>
                   <input
                     type="text"
-                    placeholder="Title"
+                    :placeholder="$t('labels.title')"
                     v-model="title"
                     class="text-lg font-medium leading-6 text-gray-900 px-2 py-1 outline-none w-full placeholder:text-gray-500"
                     :class="color ? getColor(color as Color): 'bg-white'"
@@ -53,26 +55,30 @@
                     autofocus
                   />
                   <span class="text-red-500 text-xs pt-1 block">{{
-                    errors.title
+                    $t(errors.title ?? "")
                   }}</span>
                 </div>
                 <div class="">
-                  <label for="content" class="hidden">Content</label>
+                  <label for="content" class="hidden">{{
+                    $t("labels.content")
+                  }}</label>
                   <textarea
                     v-model="content"
-                    placeholder="Content"
+                    :placeholder="$t('labels.content')"
                     class="text-md font-medium leading-6 text-gray-600 px-2 py-1 outline-none w-full resize-none placeholder:text-gray-500"
                     :class="color ? getColor(color as Color): 'bg-white'"
                     rows="4"
                     id="content"
                   ></textarea>
                   <span class="text-red-500 text-xs pt-1 block">{{
-                    errors.content
+                    $t(errors.content ?? "")
                   }}</span>
                 </div>
 
                 <div class="">
-                  <label for="color" class="hidden">Color</label>
+                  <label for="color" class="hidden">{{
+                    $t("labels.color")
+                  }}</label>
                   <div class="flex gap-1">
                     <div>
                       <input
@@ -113,7 +119,7 @@
                   </div>
 
                   <span class="text-red-500 text-xs pt-1 block">{{
-                    errors.color
+                    $t(errors.color ?? "")
                   }}</span>
                 </div>
 
@@ -123,13 +129,13 @@
                     class="inline-flex justify-center rounded-md border border-transparent bg-red-300 px-4 py-2 text-sm font-medium text-gray-900 hover:bg-red-400"
                     @click="closeModal"
                   >
-                    Close
+                    {{ $t("actions.close") }}
                   </button>
                   <LoadingButton
                     variant="normal"
                     :loading="isLoading"
                     class="w-16"
-                    >Edit</LoadingButton
+                    >{{ $t("actions.edit") }}</LoadingButton
                   >
                 </div>
               </form>
@@ -162,6 +168,7 @@ import {
 import { createToast } from "mosha-vue-toastify";
 import LoadingButton from "../components/LoadingButton.vue";
 import getColor from "@/utils/getColor";
+import { useI18n } from "vue-i18n";
 
 const props = defineProps<{
   note: Note;
@@ -197,6 +204,8 @@ const { value: title } = useField<string>("title");
 const { value: content } = useField<string>("content");
 const { value: color } = useField<string>("color");
 
+const { t } = useI18n();
+
 const { isLoading, mutate } = useMutation({
   mutationFn: (note: UpdateNoteInput) => updateNoteFn(props.note.id)(note),
   onError: (error) => {
@@ -218,7 +227,7 @@ const { isLoading, mutate } = useMutation({
   },
   onSuccess: () => {
     queryClient.refetchQueries(["notes"]);
-    createToast("Successfully updated note", {
+    createToast(t("edit_note.success"), {
       position: "top-right",
       type: "success",
     });

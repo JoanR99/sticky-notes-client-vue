@@ -20,12 +20,14 @@ const onClick = () => {
 </script>
 
 <template>
-  <header v-if="accessToken" class="fixed top-12 w-full">
+  <header v-if="accessToken" class="w-full z-0">
     <div
       class="flex justify-between px-4 items-center bg-gray-200 text-black py-2"
     >
       <button @click="onClick" class="text-blue-600">
-        {{ isArchive ? "Unarchive Notes" : "Archived Notes" }}
+        {{
+          isArchive ? $t("second_header.notes") : $t("second_header.archived")
+        }}
       </button>
 
       <SearchBar />

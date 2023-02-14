@@ -2,29 +2,34 @@ import { z } from "zod";
 
 export const noteSchema = z.object({
   id: z.number(),
-  title: z.string({
-    required_error: "Name is required",
-    invalid_type_error: "Name must be a string",
-  }),
+  title: z
+    .string({
+      required_error: "validation.title.required",
+      invalid_type_error: "validation.title.type",
+    })
+    .min(1, "validation.title.required"),
   content: z.string({
-    required_error: "Name is required",
-    invalid_type_error: "Name must be a string",
+    required_error: "validation.content.required",
+    invalid_type_error: "validation.content.type",
   }),
   isArchive: z.boolean(),
   authorId: z.number(),
-  color: z.enum([
-    "red",
-    "yellow",
-    "orange",
-    "blue",
-    "teal",
-    "green",
-    "purple",
-    "pink",
-    "gray",
-    "brown",
-    "white",
-  ]),
+  color: z.enum(
+    [
+      "red",
+      "yellow",
+      "orange",
+      "blue",
+      "teal",
+      "green",
+      "purple",
+      "pink",
+      "gray",
+      "brown",
+      "white",
+    ],
+    { required_error: "validation.color.required" }
+  ),
   createdAt: z.string(),
   updatedAt: z.string(),
 });

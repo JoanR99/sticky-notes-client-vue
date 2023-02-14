@@ -4,14 +4,23 @@ import { useAuthStore } from "../stores/auth";
 import { useMutation } from "@tanstack/vue-query";
 import { logoutUserFn } from "@/api/authApi";
 import { createToast } from "mosha-vue-toastify";
+import ChangeLanguage from "./ChangeLanguage.vue";
+import router from "@/router";
+import { useI18n } from "vue-i18n";
 
 const authStore = useAuthStore();
+
+const { t } = useI18n();
 
 const { mutate } = useMutation({
   mutationFn: logoutUserFn,
   onSuccess: () => {
+    router.push({ name: "login" });
     authStore.setAccessToken("");
-    document.location.href = "/login";
+    createToast(t("logout.success"), {
+      position: "top-right",
+      type: "success",
+    });
   },
   onError: (error) => {
     if (Array.isArray((error as any).response.data.error)) {
@@ -34,16 +43,30 @@ const handleLogout = () => mutate();
 </script>
 
 <template>
-  <header class="fixed top-0 w-full">
+  <header class="w-full">
     <div
       class="flex justify-between px-4 items-center bg-teal-700 text-white py-3"
     >
       <RouterLink to="/" class="text-xl font-bold">Sticky Notes</RouterLink>
-      <nav v-if="!authStore.accessToken" class="flex gap-2">
-        <RouterLink to="/login">Login</RouterLink>
-        <RouterLink to="/register">Sign Up</RouterLink>
-      </nav>
-      <p v-else @click="handleLogout" class="cursor-pointer">Logout</p>
+
+      <div class="flex gap-4 items-center">
+        <ChangeLanguage />
+        <nav v-if="!authStore.accessToken" class="flex gap-2">
+          <RouterLink to="/login">{{ $t("sign_up.actions.login") }}</RouterLink>
+          <RouterLink to="/register">{{
+            $t("sign_up.actions.register")
+          }}</RouterLink>
+        </nav>
+        <v-icon
+          v-else
+          @click="handleLogout"
+          name="hi-logout"
+          class="cursor-pointer text-white w-7 h-7 mr-3 hover:text-red-400"
+          :alt="$t('logout.action')"
+          :aria-label="$t('logout.action')"
+        >
+        </v-icon>
+      </div>
     </div>
   </header>
 </template>

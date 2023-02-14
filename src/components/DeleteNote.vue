@@ -39,7 +39,7 @@
                 as="h3"
                 class="text-lg font-medium leading-6 text-gray-900"
               >
-                Delete Note
+                {{ $t("delete_note.title") }}
               </DialogTitle>
 
               <div class="flex justify-between mt-6">
@@ -48,14 +48,13 @@
                   class="inline-flex justify-center rounded-md border border-transparent bg-red-300 px-4 py-2 text-sm font-medium text-gray-900 hover:bg-red-400"
                   @click="closeModal"
                 >
-                  Close
+                  {{ $t("actions.close") }}
                 </button>
                 <LoadingButton
                   variant="normal"
                   :loading="isLoading"
-                  class="w-16"
                   @click="onClick"
-                  >Delete
+                  >{{ $t("actions.delete") }}
                 </LoadingButton>
               </div>
             </DialogPanel>
@@ -80,10 +79,13 @@ import { deleteNoteFn } from "../api/authApi";
 import type { Note } from "../schemas/noteSchemas";
 import { createToast } from "mosha-vue-toastify";
 import LoadingButton from "../components/LoadingButton.vue";
+import { useI18n } from "vue-i18n";
 
 const props = defineProps<{
   note: Note;
 }>();
+
+const { t } = useI18n();
 
 const queryClient = useQueryClient();
 
@@ -107,7 +109,7 @@ const { isLoading, mutate } = useMutation({
   },
   onSuccess: () => {
     queryClient.refetchQueries(["notes"]);
-    createToast("Successfully deleted note", {
+    createToast(t("delete_note.success"), {
       position: "top-right",
       type: "success",
     });

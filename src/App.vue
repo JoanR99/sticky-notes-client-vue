@@ -5,8 +5,10 @@ import SecondaryHeader from "./components/SecondaryHeader.vue";
 </script>
 
 <template>
-  <MainHeader />
-  <SecondaryHeader />
+  <div class="fixed top-0 w-full">
+    <MainHeader />
+    <SecondaryHeader />
+  </div>
 
   <RouterView />
 </template>

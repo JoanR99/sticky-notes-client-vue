@@ -4,7 +4,7 @@
       v-model="searchInput"
       type="text"
       name="search"
-      placeholder="Search"
+      :placeholder="$t('search.placeholder')"
       class="w-56 rounded-xl p-1 px-2 outline-none shadow-sm shadow-gray-500"
       autocomplete="off"
     />

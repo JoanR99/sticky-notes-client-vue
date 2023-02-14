@@ -16,7 +16,10 @@ import {
   BiArchiveFill,
   MdUnarchive,
   MdDelete,
+  MdLanguageSharp,
+  HiLogout,
 } from "oh-vue-icons/icons";
+import i18n from "./locales/i18n";
 
 addIcons(
   FaSearch,
@@ -25,11 +28,14 @@ addIcons(
   MdModeeditoutline,
   BiArchiveFill,
   MdUnarchive,
-  MdDelete
+  MdDelete,
+  MdLanguageSharp,
+  HiLogout
 );
 
 const app = createApp(App);
 
+app.use(i18n);
 app.use(createPinia());
 app.use(router);
 app.use(VueQueryPlugin);
