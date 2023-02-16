@@ -82,7 +82,7 @@ export default function api<Request, Response>({
 
 export const refreshAccessTokenFn = async () => {
   const response = await authApi.get("users/refresh");
-  return response.data;
+  return response.data as LoginResponse;
 };
 
 authApi.interceptors.response.use(

@@ -1,8 +1,13 @@
-import { createRouter, createWebHistory } from "vue-router";
+import {
+  createRouter,
+  createWebHistory,
+  type NavigationGuardNext,
+  type RouteLocationNormalized,
+} from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import { useAuthStore } from "../stores/auth";
-import { refreshAccessTokenFn } from "@/api/authApi";
-import { storeToRefs } from "pinia";
+import middlewarePipeline from "./middlewarePipeline";
+import requireAuth from "./middlewares/requireAuth";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -12,7 +17,7 @@ const router = createRouter({
       name: "home",
       component: HomeView,
       meta: {
-        requiresAuth: true,
+        middleware: [requireAuth],
       },
     },
     {
@@ -28,26 +33,31 @@ const router = createRouter({
   ],
 });
 
-router.beforeEach(async (to) => {
-  // ✅ This will work because the router starts its navigation after
-  // the router is installed and pinia will be installed too
-  const authStore = useAuthStore();
-  const { accessToken } = storeToRefs(authStore);
-  const { setAccessToken } = authStore;
+router.beforeEach(
+  (
+    to: RouteLocationNormalized,
+    from: RouteLocationNormalized,
+    next: NavigationGuardNext
+  ) => {
+    const authStore = useAuthStore();
 
-  if (!accessToken.value) {
-    try {
-      const response = await refreshAccessTokenFn();
-      if (response) {
-        setAccessToken(response.accessToken);
-        return "/";
-      }
-    } catch (e) {
-      console.log(e);
+    if (!to.meta.middleware) {
+      return next();
     }
-  }
+    const middleware = to.meta.middleware as any;
 
-  if (to.meta.requiresAuth && !accessToken.value) return "/login";
-});
+    const context = {
+      to,
+      from,
+      next,
+      authStore,
+    };
+
+    return middleware[0]({
+      ...context,
+      next: middlewarePipeline(context, middleware, 1),
+    });
+  }
+);
 
 export default router;
