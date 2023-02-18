@@ -36,7 +36,7 @@ export enum HTTPStatusCode {
   OK = 200,
 }
 
-const BASE_URL = "https://sticky-notes-server.onrender.com/api/";
+const BASE_URL = import.meta.env.VITE_SERVER_URL ?? "/api";
 
 const authApi = axios.create({
   baseURL: BASE_URL,
