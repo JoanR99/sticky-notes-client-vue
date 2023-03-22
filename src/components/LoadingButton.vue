@@ -1,8 +1,8 @@
 <template>
   <button
     type="submit"
-    class="py-1 md:py-2 font-semibold bg-pink-600 rounded-lg outline-none border-none flex justify-center"
-    :class="variant === 'fullwidth' ? 'w-full' : 'px-2 md:px-4'"
+    class="py-1 md:py-2 font-semibold bg-pink-600 rounded-lg outline-none border-none flex justify-center items-center"
+    :class="variant === 'fullwidth' ? 'w-full' : 'px-4'"
     :disabled="loading"
     :style="[loading ? { backgroundColor: '#ccc' } : {}]"
   >

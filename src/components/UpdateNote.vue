@@ -33,7 +33,7 @@
             leave-to="opacity-0 scale-95"
           >
             <DialogPanel
-              class="w-full max-w-lg transform overflow-hidden rounded-2xl p-6 text-left align-middle shadow-xl transition-all"
+              class="w-full max-w-lg transform overflow-hidden rounded-2xl lg:p-6 text-left align-middle shadow-xl transition-all"
               :class="color ? getColor(color as Color): 'bg-white'"
             >
               <form
@@ -94,7 +94,7 @@
 
                       <label
                         for="white"
-                        :class="`bg-white rounded-full border border-gray-400 w-8 h-8 block truncate peer-checked:border-2 peer-checked:border-blue-500`"
+                        :class="`bg-white rounded-full border border-gray-400 w-6 h-6 md:w-8 md:h-8 block truncate peer-checked:border-2 peer-checked:border-blue-500`"
                       ></label>
                     </div>
 
@@ -112,7 +112,7 @@
                         :for="colorInput"
                         :class="`${getColor(
                           colorInput
-                        )} rounded-full border border-gray-400 w-8 h-8 block truncate peer-checked:border-2 peer-checked:border-blue-500`"
+                        )} rounded-full border border-gray-400 w-6 h-6 md:w-8 md:h-8 block truncate peer-checked:border-2 peer-checked:border-blue-500`"
                       >
                       </label>
                     </div>
