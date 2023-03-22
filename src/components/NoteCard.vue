@@ -7,7 +7,9 @@
       <h2 class="text-lg font-medium leading-6 text-gray-900 break-words">
         {{ props.note.title }}
       </h2>
-      <p class="break-words mt-2 text-gray-700">{{ props.note.content }}</p>
+      <p class="break-words mt-2 text-md text-gray-700">
+        {{ props.note.content }}
+      </p>
     </div>
 
     <div class="mt-2 flex justify-center gap-2">

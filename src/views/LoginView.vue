@@ -1,42 +1,46 @@
 <template>
-  <section class="min-h-screen grid place-items-center">
+  <section
+    class="min-h-[90vh] mt-24 mb-2 max-w-xs m-auto md:max-w-sm lg:max-w-md"
+  >
     <div>
-      <h1
-        class="text-4xl xl:text-6xl text-center font-[600] text-teal-600 mb-4"
-      >
+      <h1 class="text-2xl lg:text-4xl text-center text-teal-600 mb-2 md:mb-4">
         {{ $t("login.title") }}
       </h1>
-      <h2 class="text-lg text-center mb-4 text-gray-600">
+      <h2 class="text-md lg:text-lg text-center mb-2 md:mb-4 text-gray-600">
         {{ $t("login.sub_title") }}
       </h2>
       <form
         @submit="onSubmit"
-        class="max-w-[27rem] mx-auto overflow-hidden shadow-lg bg-blue-200 rounded-2xl p-8 space-y-5"
+        class="max-w-[27rem] mx-auto overflow-hidden shadow-lg bg-blue-200 rounded-2xl p-4 space-y-3 md:p-8 md:space-y-5"
       >
-        <div class="">
-          <label for="email" class="block text-black mb-3">{{
-            $t("labels.email")
-          }}</label>
+        <div>
+          <label
+            for="email"
+            class="block text-black mb-2 md:mb-3 text-sm md:text-lg"
+            >{{ $t("labels.email") }}</label
+          >
           <input
             type="email"
             placeholder=" "
             v-model="email"
-            class="block w-full rounded-2xl appearance-none focus:outline-none py-2 px-4"
+            class="block w-full rounded-2xl appearance-none focus:outline-none py-1 px-2 md:py-2 md:px-4"
             id="email"
           />
           <span class="text-red-500 text-xs pt-1 block">{{
             $t(errors.email ?? "")
           }}</span>
         </div>
-        <div class="">
-          <label for="password" class="block text-black mb-3">{{
-            $t("labels.password")
-          }}</label>
+        <div>
+          <label
+            for="password"
+            class="block text-black mb-2 md:mb-3 text-sm md:text-lg"
+            >{{ $t("labels.password") }}</label
+          >
           <input
             v-model="password"
             type="password"
             placeholder=" "
-            class="block w-full rounded-2xl appearance-none focus:outline-none py-2 px-4"
+            class="block w-full rounded-2xl appearance-none focus:outline-none py-1 px-2 md:py-2 md:px-4"
             id="password"
           />
           <span class="text-red-500 text-xs pt-1 block">{{
@@ -47,7 +51,7 @@
         <LoadingButton variant="fullwidth" :loading="isLoading">{{
           $t("login.actions.login")
         }}</LoadingButton>
-        <span class="block"
+        <span class="block text-sm md:text-lg"
           >{{ $t("login.action_call") }}
           <router-link :to="{ name: 'register' }" class="text-pink-600">{{
             $t("login.actions.register")

@@ -1,9 +1,9 @@
 <template>
-  <div class="w-12 mr-4">
+  <div class="w-18 mr-4">
     <Listbox v-model="$i18n.locale">
       <div class="relative mt-1">
         <ListboxButton
-          class="relative flex w-full cursor-pointer rounded-lg bg-white p-2 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm text-black"
+          class="relative flex w-full cursor-pointer rounded-lg items-center bg-white p-2 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm text-black text-sm md:text-md"
         >
           {{ $i18n.locale }}
           <v-icon name="md-language-sharp" class="text-gray-400 ml-1" />

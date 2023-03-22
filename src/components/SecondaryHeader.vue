@@ -24,7 +24,10 @@ const onClick = () => {
     <div
       class="flex justify-between px-4 items-center bg-gray-200 text-black py-2"
     >
-      <button @click="onClick" class="text-blue-600">
+      <button
+        @click="onClick"
+        class="text-blue-600 text-sm md:text-md xl:text-lg"
+      >
         {{
           isArchive ? $t("second_header.notes") : $t("second_header.archived")
         }}

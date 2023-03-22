@@ -6,7 +6,7 @@
           class="relative flex w-full cursor-pointer rounded-lg bg-white p-2 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm"
         >
           <span
-            class="block truncate h-5"
+            class="block truncate h-5 text-sm md:text-md"
             :class="[
               color
                 ? `${getColor(color)} rounded-full border border-gray-400`
@@ -32,6 +32,7 @@
               :key="colorInput === undefined ? 'all' : colorInput"
               :value="colorInput"
               as="template"
+              class="text-sm md:text-md"
             >
               <li
                 :class="[

@@ -47,15 +47,25 @@ const handleLogout = () => mutate();
     <div
       class="flex justify-between px-4 items-center bg-teal-700 text-white py-3"
     >
-      <RouterLink to="/" class="text-xl font-bold">Sticky Notes</RouterLink>
+      <RouterLink to="/" class="text-lg font-bold md:text-xl"
+        >Sticky Notes</RouterLink
+      >
 
       <div class="flex gap-4 items-center">
         <ChangeLanguage />
         <nav v-if="!authStore.accessToken" class="flex gap-2">
-          <RouterLink to="/login">{{ $t("sign_up.actions.login") }}</RouterLink>
-          <RouterLink to="/register">{{
-            $t("sign_up.actions.register")
-          }}</RouterLink>
+          <RouterLink
+            v-if="router.currentRoute.value.path == '/register'"
+            to="/login"
+            class="text-sm md:text-lg"
+            >{{ $t("sign_up.actions.login") }}</RouterLink
+          >
+          <RouterLink
+            v-if="router.currentRoute.value.path == '/login'"
+            to="/register"
+            class="text-sm md:text-lg"
+            >{{ $t("sign_up.actions.register") }}</RouterLink
+          >
         </nav>
         <v-icon
           v-else

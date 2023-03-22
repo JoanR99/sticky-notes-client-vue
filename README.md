@@ -7,7 +7,7 @@ Sticky Notes is a note app with the functions of creating, editing, archiving, a
 ## Links
 
 - [Repo](https://github.com/JoanR99/sticky-notes-client-vue "Sticky Notes Frontend repo")
-- [Backend](https://github.com/JoanR99/sticky-notes-server-fastify "Sticky Notes Backend repo")
+- [Backend](https://github.com/JoanR99/sticky-notes-server "Sticky Notes Backend repo")
 - [Live Demo](https://sticky-notes-client-vue.vercel.app/ "Live View")
 
 &nbsp;

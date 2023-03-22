@@ -5,7 +5,7 @@
       type="text"
       name="search"
       :placeholder="$t('search.placeholder')"
-      class="w-56 rounded-xl p-1 px-2 outline-none shadow-sm shadow-gray-500"
+      class="w-24 lg:w-52 text-sm md:text-md rounded-xl p-1 px-2 outline-none shadow-sm shadow-gray-500"
       autocomplete="off"
     />
     <button type="submit">
