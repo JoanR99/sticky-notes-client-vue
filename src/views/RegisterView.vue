@@ -103,12 +103,13 @@ import { toFormValidator } from "@vee-validate/zod";
 import { useMutation } from "@tanstack/vue-query";
 import { signUpUserFn } from "@/api/authApi";
 import { createToast } from "mosha-vue-toastify";
-import router from "@/router";
+import { useRouter } from "vue-router";
 import LoadingButton from "../components/LoadingButton.vue";
 import { registerUserSchema, type RegisterUser } from "@/schemas/userSchemas";
 import { useI18n } from "vue-i18n";
 
 const registerSchema = toFormValidator(registerUserSchema);
+const router = useRouter();
 
 const { handleSubmit, errors, resetForm } = useForm({
   validationSchema: registerSchema,

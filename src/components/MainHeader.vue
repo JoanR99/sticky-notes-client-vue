@@ -5,10 +5,12 @@ import { useMutation } from "@tanstack/vue-query";
 import { logoutUserFn } from "@/api/authApi";
 import { createToast } from "mosha-vue-toastify";
 import ChangeLanguage from "./ChangeLanguage.vue";
-import router from "@/router";
+import { useRouter } from "vue-router";
 import { useI18n } from "vue-i18n";
 
-const authStore = useAuthStore();
+const auth = useAuthStore();
+
+const router = useRouter();
 
 const { t } = useI18n();
 
@@ -16,7 +18,7 @@ const { mutate } = useMutation({
   mutationFn: logoutUserFn,
   onSuccess: () => {
     router.push({ name: "login" });
-    authStore.setAccessToken("");
+    auth.setAccessToken("");
     createToast(t("logout.success"), {
       position: "top-right",
       type: "success",
@@ -53,7 +55,7 @@ const handleLogout = () => mutate();
 
       <div class="flex gap-4 items-center">
         <ChangeLanguage />
-        <nav v-if="!authStore.accessToken" class="flex gap-2">
+        <nav v-if="!auth.accessToken" class="flex gap-2">
           <RouterLink
             v-if="router.currentRoute.value.path == '/register'"
             to="/login"

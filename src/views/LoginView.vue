@@ -70,12 +70,13 @@ import { loginUserFn } from "../api/authApi";
 import { loginUserSchema } from "../schemas/userSchemas";
 import type { LoginUserInput } from "../schemas/userSchemas";
 import { createToast } from "mosha-vue-toastify";
-import router from "../router";
+import { useRouter } from "vue-router";
 import { useAuthStore } from "../stores/auth";
 import LoadingButton from "../components/LoadingButton.vue";
 import { useI18n } from "vue-i18n";
 
 const authStore = useAuthStore();
+const router = useRouter();
 
 const loginSchema = toFormValidator(loginUserSchema);
 
