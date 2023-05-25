@@ -7,8 +7,11 @@ import { createToast } from "mosha-vue-toastify";
 import ChangeLanguage from "./ChangeLanguage.vue";
 import { useRouter } from "vue-router";
 import { useI18n } from "vue-i18n";
+import { storeToRefs } from "pinia";
 
 const auth = useAuthStore();
+
+const { accessToken } = storeToRefs(auth);
 
 const router = useRouter();
 
@@ -55,7 +58,7 @@ const handleLogout = () => mutate();
 
       <div class="flex gap-4 items-center">
         <ChangeLanguage />
-        <nav v-if="!auth.accessToken" class="flex gap-2">
+        <nav v-if="!accessToken" class="flex gap-2">
           <RouterLink
             v-if="router.currentRoute.value.path == '/register'"
             to="/login"

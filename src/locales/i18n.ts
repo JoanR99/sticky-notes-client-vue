@@ -14,4 +14,15 @@ const i18n = VueI18n.createI18n<[MessageSchema], "en" | "es">({
   },
 });
 
+export const createI18nInstance = (language: "en" | "es") =>
+  VueI18n.createI18n<[MessageSchema], "en" | "es">({
+    legacy: false,
+    locale: language,
+    fallbackLocale: "en",
+    messages: {
+      en,
+      es,
+    },
+  });
+
 export default i18n;
