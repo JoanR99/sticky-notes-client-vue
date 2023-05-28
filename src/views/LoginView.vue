@@ -21,13 +21,14 @@
           >
           <input
             type="email"
+            name="email"
             placeholder=" "
             v-model="email"
             class="block w-full rounded-2xl appearance-none focus:outline-none py-1 px-2 md:py-2 md:px-4"
             id="email"
           />
           <span class="text-red-500 text-xs pt-1 block">{{
-            $t(errors.email ?? "")
+            errors.email ? $t(errors.email) : ""
           }}</span>
         </div>
         <div>
@@ -39,12 +40,13 @@
           <input
             v-model="password"
             type="password"
+            name="password"
             placeholder=" "
             class="block w-full rounded-2xl appearance-none focus:outline-none py-1 px-2 md:py-2 md:px-4"
             id="password"
           />
           <span class="text-red-500 text-xs pt-1 block">{{
-            $t(errors.password ?? "")
+            errors.password ? $t(errors.password) : ""
           }}</span>
         </div>
 
