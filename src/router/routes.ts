@@ -1,14 +1,13 @@
+import type { RouteRecordRaw } from "vue-router";
 import HomeView from "../views/HomeView.vue";
-import requireAuth from "./middlewares/requireAuth";
+import { authGuard } from "./authGuard";
 
-export const routes = [
+export const routes: RouteRecordRaw[] = [
   {
     path: "/",
     name: "home",
     component: HomeView,
-    meta: {
-      middleware: [requireAuth],
-    },
+    beforeEnter: [authGuard],
   },
   {
     path: "/login",

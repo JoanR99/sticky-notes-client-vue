@@ -1,4 +1,5 @@
 import { test, expect, chromium } from "@playwright/test";
+import { getNotesFromParams, notes } from "./utils";
 
 const baseURL = "http://localhost:5173";
 
@@ -10,41 +11,9 @@ test.describe("Home", () => {
 
   test.beforeEach(async ({ page }) => {
     await page.route("**/api/notes**", async (route) => {
-      const notesParamMap = new Map([
-        [
-          "isArchive=false",
-          [
-            {
-              id: 1,
-              title: "title",
-              content: "content",
-              isArchive: false,
-              authorId: 1,
-              color: "white",
-              createdAt: new Date().toISOString(),
-              updatedAt: new Date().toISOString(),
-            },
-          ],
-        ],
-        [
-          "isArchive=true",
-          [
-            {
-              id: 1,
-              title: "title1",
-              content: "content1",
-              isArchive: true,
-              authorId: 1,
-              color: "white",
-              createdAt: new Date().toISOString(),
-              updatedAt: new Date().toISOString(),
-            },
-          ],
-        ],
-      ]);
       const requestUrl = route.request().url();
-      const params = requestUrl.split("?")[1];
-      const responseBody = notesParamMap.get(params);
+      const responseBody = getNotesFromParams(requestUrl, notes);
+      console.log(responseBody);
       if (responseBody) {
         route.fulfill({
           headers: {
@@ -96,7 +65,7 @@ test.describe("Home", () => {
 
       await page.waitForSelector("article");
 
-      const note = page.getByRole("article");
+      const note = page.locator("article");
       expect(note).toBeVisible();
     });
 
