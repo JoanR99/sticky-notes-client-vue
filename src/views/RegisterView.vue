@@ -27,7 +27,7 @@
             id="name"
           />
           <span class="text-red-500 text-xs pt-1 block">{{
-            $t(errors.name ?? "")
+            errors.name ? $t(errors.name) : ""
           }}</span>
         </div>
         <div class="">
@@ -44,7 +44,7 @@
             id="email"
           />
           <span class="text-red-500 text-xs pt-1 block">{{
-            $t(errors.email ?? "")
+            errors.email ? $t(errors.email) : ""
           }}</span>
         </div>
         <div class="">
@@ -61,7 +61,7 @@
             id="password"
           />
           <span class="text-red-500 text-xs pt-1 block">{{
-            $t(errors.password ?? "")
+            errors.password ? $t(errors.password) : ""
           }}</span>
         </div>
         <div class="">
@@ -78,7 +78,7 @@
             id="passwordConfirm"
           />
           <span class="text-red-500 text-xs pt-1 block">{{
-            $t(errors.passwordConfirm ?? "")
+            errors.passwordConfirm ? $t(errors.passwordConfirm) : ""
           }}</span>
         </div>
 

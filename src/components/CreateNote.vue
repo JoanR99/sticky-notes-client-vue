@@ -56,7 +56,7 @@
                     autofocus
                   />
                   <span class="text-red-500 text-xs pt-1 block">{{
-                    $t(errors.title ?? "")
+                    errors.title ? $t(errors.title) : ""
                   }}</span>
                 </div>
                 <div class="">
@@ -72,7 +72,7 @@
                     id="content"
                   ></textarea>
                   <span class="text-red-500 text-xs pt-1 block">{{
-                    $t(errors.content ?? "")
+                    errors.content ? $t(errors.content) : ""
                   }}</span>
                 </div>
 
@@ -118,7 +118,7 @@
                   </div>
 
                   <span class="text-red-500 text-xs pt-1 block">{{
-                    $t(errors.color ?? "")
+                    errors.color ? $t(errors.color) : ""
                   }}</span>
                 </div>
 
