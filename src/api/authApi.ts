@@ -53,11 +53,11 @@ export default function api<Request, Response>({
 }: {
   method: HTTPMethod;
   path: string;
-  requestSchema: z.ZodType<Request>;
+  requestSchema?: z.ZodType<Request>;
   responseSchema: z.ZodType<Response>;
-}): (data: Request) => Promise<Response> {
-  return function (requestData: Request) {
-    requestSchema.parse(requestData);
+}): (data?: Request) => Promise<Response> {
+  return function (requestData?: Request) {
+    if (requestSchema) requestSchema.parse(requestData);
 
     async function apiCall() {
       const authStore = useAuthStore();
@@ -80,10 +80,11 @@ export default function api<Request, Response>({
   };
 }
 
-export const refreshAccessTokenFn = async () => {
-  const response = await authApi.get("users/refresh");
-  return response.data as LoginResponse;
-};
+export const refreshAccessTokenFn = api<undefined, LoginResponse>({
+  method: HTTPMethod.GET,
+  path: "/users/refresh",
+  responseSchema: loginResponseSchema,
+});
 
 authApi.interceptors.response.use(
   (response) => {
@@ -150,12 +151,9 @@ export const updateNoteFn = (id: number) =>
     responseSchema: noteSchema,
   });
 
-export const deleteNoteFn = async (id: number) => {
-  const authStore = useAuthStore();
-  const { accessToken } = storeToRefs(authStore);
-  const Authorization = accessToken ? `Bearer ${accessToken.value}` : "";
-  const response = await authApi.delete(`notes/${id}`, {
-    headers: { Authorization },
+export const deleteNoteFn = (id: number) =>
+  api<undefined, Note>({
+    method: HTTPMethod.DELETE,
+    path: `/notes/${id}`,
+    responseSchema: noteSchema,
   });
-  return response.data as Note;
-};

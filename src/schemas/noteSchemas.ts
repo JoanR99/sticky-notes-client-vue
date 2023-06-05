@@ -56,7 +56,6 @@ export const getNotesInput = noteSchema
   })
   .extend({
     search: z.string(),
-    accessToken: z.string(),
   })
   .partial();
 

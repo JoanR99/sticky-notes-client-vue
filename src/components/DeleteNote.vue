@@ -90,7 +90,7 @@ const { t } = useI18n();
 const queryClient = useQueryClient();
 
 const { isLoading, mutate } = useMutation({
-  mutationFn: () => deleteNoteFn(props.note.id),
+  mutationFn: () => deleteNoteFn(props.note.id)(),
   onError: (error) => {
     if (Array.isArray((error as any).response.data.error)) {
       (error as any).response.data.error.forEach((el: any) =>
