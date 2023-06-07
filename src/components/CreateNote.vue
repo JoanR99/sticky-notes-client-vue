@@ -2,6 +2,7 @@
   <button
     class="fixed bottom-10 right-10 rounded-full p-3 bg-teal-700"
     @click="openModal"
+    aria-label="add"
   >
     <v-icon name="md-create-round" class="h-6 w-6 text-white" />
   </button>

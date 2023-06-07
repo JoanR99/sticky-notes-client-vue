@@ -1,6 +1,7 @@
 <template>
   <v-icon
     v-if="props.note.isArchive"
+    aria-label="unarchive"
     name="md-unarchive"
     class="text-dark cursor-pointer"
     @click="openModal"
@@ -8,6 +9,7 @@
 
   <v-icon
     v-else
+    aria-label="archive"
     name="bi-archive-fill"
     class="text-dark cursor-pointer"
     @click="openModal"

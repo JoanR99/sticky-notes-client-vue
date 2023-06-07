@@ -1,5 +1,6 @@
 <template>
   <v-icon
+    aria-label="edit"
     name="md-modeeditoutline"
     class="text-dark cursor-pointer"
     @click="openModal"
@@ -47,6 +48,7 @@
                   }}</label>
                   <input
                     type="text"
+                    name="title"
                     :placeholder="$t('labels.title')"
                     v-model="title"
                     class="text-lg font-medium leading-6 text-gray-900 px-2 py-1 outline-none w-full placeholder:text-gray-500"
