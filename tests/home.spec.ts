@@ -13,7 +13,6 @@ test.describe("Home", () => {
     await page.route("**/api/notes**", async (route) => {
       const requestUrl = route.request().url();
       const responseBody = getNotesFromParams(requestUrl, notes);
-      console.log(responseBody);
       if (responseBody) {
         route.fulfill({
           headers: {
@@ -65,7 +64,7 @@ test.describe("Home", () => {
 
       await page.waitForSelector("article");
 
-      const note = page.locator("article");
+      const note = page.locator("article").filter({ hasText: /title/ });
       expect(note).toBeVisible();
     });
 
@@ -92,9 +91,9 @@ test.describe("Home", () => {
 
       await page.waitForSelector("article");
 
-      const note = page.getByRole("article");
+      const note = page.getByRole("article").filter({ hasText: /cat/ });
 
-      expect(note.getByRole("heading", { name: /title1/ })).toBeVisible();
+      expect(note).toBeVisible();
     });
   });
 });

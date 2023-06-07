@@ -9,10 +9,8 @@ export async function authGuard(
   next: NavigationGuardNext
 ) {
   try {
-    console.log("guard");
     const authStore = useAuthStore();
     const { accessToken } = storeToRefs(authStore);
-    console.log("accessToken", accessToken);
     if (!accessToken.value) {
       const { accessToken: newAccessToken } = await refreshAccessTokenFn();
 
