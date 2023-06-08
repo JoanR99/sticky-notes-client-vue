@@ -2,8 +2,8 @@ import { z } from "zod";
 
 export const userResponseSchema = z.object({
   message: z.string({
-    required_error: "Name is required",
-    invalid_type_error: "Name must be a string",
+    required_error: "Message is required",
+    invalid_type_error: "Message must be a string",
   }),
 });
 

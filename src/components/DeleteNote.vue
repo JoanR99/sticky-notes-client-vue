@@ -1,5 +1,6 @@
 <template>
   <v-icon
+    aria-label="delete"
     name="md-delete"
     class="text-dark cursor-pointer"
     @click="openModal"
