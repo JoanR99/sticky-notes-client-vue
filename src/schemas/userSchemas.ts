@@ -19,9 +19,8 @@ export const registerUserSchema = z.object({
   email: z
     .string({
       required_error: "validation.email.required",
-      invalid_type_error: "validation.email.invalid",
     })
-    .email(),
+    .email("validation.email.invalid"),
   password: z
     .string({ required_error: "validation.password.required" })
     .regex(

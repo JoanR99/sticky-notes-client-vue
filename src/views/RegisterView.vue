@@ -15,7 +15,7 @@
       >
         <div class="">
           <label
-            for="name"
+            for="username"
             class="block text-black mb-2 md:mb-3 text-sm md:text-lg"
             >{{ $t("labels.username") }}</label
           >
@@ -24,12 +24,14 @@
             type="text"
             placeholder=" "
             class="block w-full rounded-2xl appearance-none focus:outline-none py-1 px-2 md:py-2 md:px-4"
-            id="name"
+            id="username"
             name="username"
           />
-          <span class="text-red-500 text-xs pt-1 block">{{
-            errors.name ? $t(errors.name) : ""
-          }}</span>
+          <ErrorMessage name="username" v-slot="{ message }">
+            <span class="text-red-500 text-xs pt-1 block">{{
+              $t(message!)
+            }}</span>
+          </ErrorMessage>
         </div>
         <div class="">
           <label
@@ -45,9 +47,11 @@
             id="email"
             name="email"
           />
-          <span class="text-red-500 text-xs pt-1 block">{{
-            errors.email ? $t(errors.email) : ""
-          }}</span>
+          <ErrorMessage name="email" v-slot="{ message }">
+            <span class="text-red-500 text-xs pt-1 block">{{
+              $t(message!)
+            }}</span>
+          </ErrorMessage>
         </div>
         <div class="">
           <label
@@ -63,9 +67,11 @@
             id="password"
             name="password"
           />
-          <span class="text-red-500 text-xs pt-1 block">{{
-            errors.password ? $t(errors.password) : ""
-          }}</span>
+          <ErrorMessage name="password" v-slot="{ message }">
+            <span class="text-red-500 text-xs pt-1 block">{{
+              $t(message!)
+            }}</span>
+          </ErrorMessage>
         </div>
         <div class="">
           <label
@@ -81,9 +87,11 @@
             id="passwordConfirm"
             name="passwordConfirm"
           />
-          <span class="text-red-500 text-xs pt-1 block">{{
-            errors.passwordConfirm ? $t(errors.passwordConfirm) : ""
-          }}</span>
+          <ErrorMessage name="passwordConfirm" v-slot="{ message }">
+            <span class="text-red-500 text-xs pt-1 block">{{
+              $t(message!)
+            }}</span>
+          </ErrorMessage>
         </div>
 
         <LoadingButton variant="fullwidth" :loading="isLoading">{{
@@ -102,20 +110,23 @@
 </template>
 
 <script setup lang="ts">
-import { useField, useForm } from "vee-validate";
+import { useField, useForm, ErrorMessage } from "vee-validate";
 import { toFormValidator } from "@vee-validate/zod";
 import { useMutation } from "@tanstack/vue-query";
 import { signUpUserFn } from "@/api/authApi";
 import { createToast } from "mosha-vue-toastify";
 import { useRouter } from "vue-router";
 import LoadingButton from "../components/LoadingButton.vue";
-import { registerUserSchema, type RegisterUser } from "@/schemas/userSchemas";
+import {
+  type RegisterUser,
+  registerUserSchemaInput,
+} from "@/schemas/userSchemas";
 import { useI18n } from "vue-i18n";
 
-const registerSchema = toFormValidator(registerUserSchema);
+const registerSchema = toFormValidator(registerUserSchemaInput);
 const router = useRouter();
 
-const { handleSubmit, errors, resetForm } = useForm({
+const { handleSubmit, resetForm } = useForm({
   validationSchema: registerSchema,
 });
 
